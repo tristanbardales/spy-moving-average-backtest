@@ -8,15 +8,18 @@ Does a simple trend-following strategy beat buy-and-hold? This project backtests
 - **In cash** when the 50-day moving average falls below the 200-day moving average
 - Trades execute the day after a signal to avoid look-ahead bias
 - A 0.1% transaction cost is applied to every trade
+-  Earns the 13-week Treasury bill rate while in cash
 
 ## Results (2005–2026)
 
 | Metric | Buy & Hold | MA Crossover |
 |---|---|---|
-| Annualized Return | 11.29% | 9.25% |
+| Annualized Return | 11.29% | 9.56% |
 | Volatility | 19.11% | 13.80% |
-| Sharpe Ratio | 0.66 | 0.71 |
+| Sharpe Ratio | 0.57 | 0.61 |
 | Max Drawdown | -55.19% | -33.72% |
+
+*Sharpe ratios are calculated using returns in excess of the 13-week T-bill rate.*
 
 The strategy was invested 79% of the time and made 21 trades.
 
@@ -24,9 +27,9 @@ The strategy was invested 79% of the time and made 21 trades.
 
 | Metric | B&H 2005–2015 | MA 2005–2015 | B&H 2016–2026 | MA 2016–2026 |
 |---|---|---|---|---|
-| Annualized Return | 7.65% | 8.93% | 14.86% | 9.56% |
+| Annualized Return | 7.65% | 9.14% | 14.86% | 9.95% |
 | Volatility | 20.51% | 12.47% | 17.69% | 14.96% |
-| Sharpe Ratio | 0.46 | 0.75 | 0.87 | 0.69 |
+| Sharpe Ratio | 0.41 | 0.67 | 0.74 | 0.56 |
 | Max Drawdown | -55.19% | -17.31% | -33.72% | -33.72% |
 
 ## Key Findings
@@ -39,7 +42,6 @@ However, splitting the data shows that nearly all of this advantage came from av
 
 ## Limitations and Next Steps
 
-- Cash earns 0% in this model; including Treasury bill interest would modestly improve the strategy's results
 - Prices are adjusted for dividends but taxes are not modeled
 - Possible extensions: test other moving-average windows, other assets (international stocks, bonds), or volatility-based exit rules
 
