@@ -1,2 +1,48 @@
-# spy-moving-average-backtest
-Does a moving-average crossover beat buy-and-hold? A 20-year S&amp;P 500 backtest in Python, analyzing returns, Sharpe ratio, and drawdowns.
+# SPY Moving Average Crossover Backtest
+
+Does a simple trend-following strategy beat buy-and-hold? This project backtests a 50/200-day moving-average crossover strategy on 20 years of S&P 500 (SPY) data and compares its returns and risk to simply holding the index.
+
+## Strategy
+
+- **Invested** when the 50-day moving average is above the 200-day moving average
+- **In cash** when the 50-day moving average falls below the 200-day moving average
+- Trades execute the day after a signal to avoid look-ahead bias
+- A 0.1% transaction cost is applied to every trade
+
+## Results (2005–2026)
+
+| Metric | Buy & Hold | MA Crossover |
+|---|---|---|
+| Annualized Return | 11.29% | 9.25% |
+| Volatility | 19.11% | 13.80% |
+| Sharpe Ratio | 0.66 | 0.71 |
+| Max Drawdown | -55.19% | -33.72% |
+
+The strategy was invested 79% of the time and made 21 trades.
+
+## Sub-Period Analysis
+
+| Metric | B&H 2005–2015 | MA 2005–2015 | B&H 2016–2026 | MA 2016–2026 |
+|---|---|---|---|---|
+| Annualized Return | 7.65% | 8.93% | 14.86% | 9.56% |
+| Volatility | 20.51% | 12.47% | 17.69% | 14.96% |
+| Sharpe Ratio | 0.46 | 0.75 | 0.87 | 0.69 |
+| Max Drawdown | -55.19% | -17.31% | -33.72% | -33.72% |
+
+## Key Findings
+
+Over the full period, the strategy gave up about 2% of annual return in exchange for lower volatility, a smaller maximum drawdown, and a slightly higher Sharpe ratio.
+
+However, splitting the data shows that nearly all of this advantage came from avoiding the 2008 financial crisis, a slow-moving decline that gave the strategy time to exit. During the fast 2020 COVID crash, the strategy sold too late, took the full drawdown, and then missed much of the rebound while sitting in cash. In 2016–2026, it underperformed buy-and-hold on both return and risk-adjusted return.
+
+**Takeaway:** The strategy's edge depends heavily on the type of market crash, and a strong full-period backtest can be driven by a single event. Testing across different time periods is essential before trusting any strategy.
+
+## Limitations and Next Steps
+
+- Cash earns 0% in this model; including Treasury bill interest would modestly improve the strategy's results
+- Prices are adjusted for dividends but taxes are not modeled
+- Possible extensions: test other moving-average windows, other assets (international stocks, bonds), or volatility-based exit rules
+
+## Tools
+
+Python, pandas, NumPy, Matplotlib, yfinance (built in Google Colab)
